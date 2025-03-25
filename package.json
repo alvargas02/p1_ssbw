@@ -1,0 +1,17 @@
+{
+  "name": "p1_ssbw",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "scripts": {
+    "dev": "node --watch --env-file=.env index.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "chokidar": "^3.6.0",
+    "express": "^4.21.2",
+    "nunjucks": "^3.2.4"
+  }
+}
