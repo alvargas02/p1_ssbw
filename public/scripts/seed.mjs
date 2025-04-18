@@ -1,47 +1,77 @@
-// seed.mjs
-import { readFileSync, writeFileSync } from "fs";
-import { PrismaClient } from "@prisma/client";
-import fetch from "node-fetch";
-import https from "https";
+// public/scripts/seed.mjs
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
+import { PrismaClient } from '@prisma/client';
+import fetch from 'node-fetch';
+import https from 'https';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
 const prisma = new PrismaClient();
 
-// Crear un agente HTTPS que no verifique el certificado (solo para desarrollo)
-const agent = new https.Agent({
-  rejectUnauthorized: false,
-});
+// ----- Resolución de rutas basadas en este archivo -----
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-// Leer el archivo JSON
-const obras = JSON.parse(readFileSync('./info_obras.json', 'utf-8'));
+// Ruta al JSON de datos
+const datosPath = join(__dirname, 'info_obras.json');
+
+// Carpeta de destino para las imágenes: ../images (desde public/scripts → public/images)
+const imagesDir = join(__dirname, '..', 'images');
+
+// Asegurarnos de que existe public/images
+if (!existsSync(imagesDir)) {
+  mkdirSync(imagesDir, { recursive: true });
+}
+
+// Configuramos agente HTTPS (si hace falta para descargas con cert no válidos)
+const agent = new https.Agent({ rejectUnauthorized: false });
+
+// Leemos los datos
+const obras = JSON.parse(readFileSync(datosPath, 'utf-8'));
 
 async function seed() {
+  // Opcional: borrar registros previos
+  await prisma.obra.deleteMany();
+
   for (const obra of obras) {
-    // Descargar la imagen usando el agente personalizado y response.arrayBuffer()
+    // 1) Descarga la imagen
     const response = await fetch(obra.imagen, { agent });
     const buffer = Buffer.from(await response.arrayBuffer());
-    const fileName = obra.titulo.replace(/\s/g, '_') + '.jpg';
-    const filePath = `./public/images/${fileName}`;
-    writeFileSync(filePath, buffer);
-    
-    // Guardar los datos en la BD usando los nombres de campo sin acento
+
+    // 2) Genera un nombre de archivo "slugificado" (sin tildes ni espacios)
+    const slug = obra.titulo
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')   // quitar acentos
+      .replace(/\s+/g, '_')              // espacios → barras bajas
+      .replace(/[^a-zA-Z0-9_]/g, '');    // limpiar otros caracteres
+    const fileName = `${slug}.jpg`;
+
+    // 3) Ruta absoluta en disco donde escribimos la imagen
+    const outPath = join(imagesDir, fileName);
+    writeFileSync(outPath, buffer);
+
+    // 4) Ruta pública que guardamos en la BD
+    const publicPath = `/images/${fileName}`;
+
+    // 5) Creamos el registro en la BD
     await prisma.obra.create({
       data: {
         titulo: obra.titulo,
-        imagen: filePath, // o la URL, según prefieras
+        imagen: publicPath,
         descripcion: obra.descripcion,
         procedencia: obra.procedencia,
         comentario: obra.comentario,
       },
     });
+
+    console.log(`Semilla: ${obra.titulo} → ${publicPath}`);
   }
-  console.log("Seed completado");
+
+  console.log('Seed completado');
+  await prisma.$disconnect();
 }
 
-seed()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+seed().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

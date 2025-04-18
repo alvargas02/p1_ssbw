@@ -1,15 +1,16 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearchPostgres"]
 }
-  			
+				
 datasource db {
-  provider = "sqlite"
-  url      = "file:obras.sqlite"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
-  			
+												
 model Obra {
   id           Int    @id @default(autoincrement())
-  titulo       String
+  titulo       String @unique
   imagen       String
   descripcion  String
   procedencia  String

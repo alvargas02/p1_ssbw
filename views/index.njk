@@ -1,23 +1,28 @@
 {% extends "base.njk" %}
 
 {% block contenido %}
-  <h1 class="title">
-    Bienvenidos
-  </h1>
+  <h1 class="title">Bienvenidos</h1>
   <h2 class="subtitle">
     Sumérgete en la historia milenaria de nuestra región y descubre el legado de antiguas civilizaciones.
   </h2>
 
-  <div class="box">
-    <div class="field is-grouped">
-      <p class="control is-expanded">
-        <input class="input" type="text" placeholder="Enter your email">
-      </p>
-      <p class="control">
-        <a class="button is-info">
-          Notify Me
-        </a>
-      </p>
+  <form method="GET" action="/obras/buscar">
+    <div class="field has-addons">
+      <div class="control is-expanded">
+        <input
+          class="input"
+          type="text"
+          name="busqueda"
+          placeholder="Palabra clave"
+          pattern="^[A-Za-zÀ-ÖØ-öø-ÿ]+$"
+          required
+        >
+      </div>
+      <div class="control">
+        <button type="submit" class="button is-info">
+          Buscar
+        </button>
+      </div>
     </div>
-  </div>
+  </form>
 {% endblock %}
