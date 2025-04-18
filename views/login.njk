@@ -1,0 +1,35 @@
+{% extends "base.njk" %}
+
+{% block title %}Iniciar sesión – Museo Arqueológico{% endblock %}
+{% block hero %}{% endblock %}
+
+{% block contenido %}
+<div class="columns is-centered">
+  <div class="column is-4">
+    <h1 class="title has-text-centered">Iniciar sesión</h1>
+    {% if error %}
+      <div class="notification is-danger">{{ error }}</div>
+    {% endif %}
+    <form action="/usuarios/login" method="POST">
+      <div class="field">
+        <label class="label">Correo</label>
+        <div class="control">
+          <input class="input" type="email" name="correo" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Contraseña</label>
+        <div class="control">
+          <input class="input" type="password" name="password" required>
+        </div>
+      </div>
+      <div class="field">
+        <button class="button is-primary is-fullwidth">Entrar</button>
+      </div>
+    </form>
+    <p class="has-text-centered">
+      ¿No tienes cuenta? <a href="/usuarios/registro">Regístrate</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

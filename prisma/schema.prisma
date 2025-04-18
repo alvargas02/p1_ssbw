@@ -16,3 +16,15 @@ model Obra {
   procedencia  String
   comentario   String
 }
+
+model Usuario {
+  correo    String @id
+  nombre    String
+  password  String
+  rol       ROL    @default(USUARIO)
+}
+
+enum ROL {
+  USUARIO
+  ADMINISTRADOR
+}

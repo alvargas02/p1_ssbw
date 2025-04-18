@@ -1,0 +1,41 @@
+{% extends "base.njk" %}
+
+{% block title %}Registro – Museo Arqueológico{% endblock %}
+{% block hero %}{% endblock %}
+
+{% block contenido %}
+<div class="columns is-centered">
+  <div class="column is-4">
+    <h1 class="title has-text-centered">Registro</h1>
+    {% if error %}
+      <div class="notification is-danger">{{ error }}</div>
+    {% endif %}
+    <form action="/usuarios/registro" method="POST">
+      <div class="field">
+        <label class="label">Nombre</label>
+        <div class="control">
+          <input class="input" type="text" name="nombre" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Correo</label>
+        <div class="control">
+          <input class="input" type="email" name="correo" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Contraseña</label>
+        <div class="control">
+          <input class="input" type="password" name="password" required>
+        </div>
+      </div>
+      <div class="field">
+        <button class="button is-success is-fullwidth">Crear cuenta</button>
+      </div>
+    </form>
+    <p class="has-text-centered">
+      ¿Ya tienes cuenta? <a href="/usuarios/login">Inicia sesión</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

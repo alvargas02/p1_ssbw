@@ -1,0 +1,5 @@
+/* espacio horizontal entre botones en la cabecera */
+.navbar-end .navbar-item + .navbar-item {
+    margin-left: 0.75rem;
+  }
+  
