@@ -1,0 +1,40 @@
+[2025-04-18 16:48:39] ERROR: 	Error GET /api/usuario/pp@pp.com: 
+Invalid `prisma.usuario.findUnique()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+[2025-04-18 16:48:44] ERROR: 	Error GET /api/usuario/noexiste@example.com: 
+Invalid `prisma.usuario.findUnique()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+[2025-04-18 16:49:13] ERROR: 	Error GET /api/usuario/pp@pp.com: 
+Invalid `prisma.usuario.findUnique()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+[2025-04-18 17:00:29] ERROR: 	Error GET /api/usuario/pp@pp.com: 
+Invalid `prisma.usuario.findUnique()` invocation:
+
+
+Can't reach database server at `host.docker.internal:5432`
+
+Please make sure your database server is running at `host.docker.internal:5432`.
+[2025-04-18 17:04:38] ERROR: 	Error en búsqueda: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Can't reach database server at `host.docker.internal:5432`
+
+Please make sure your database server is running at `host.docker.internal:5432`.
+[2025-04-18 17:05:04] ERROR: 	Error en búsqueda: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Obra" does not exist`

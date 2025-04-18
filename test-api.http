@@ -1,0 +1,25 @@
+@host = http://localhost:8000
+
+### Comprobar existencia de usuario (debe responder 200 si existe)
+GET {{host}}/api/usuario/pp@pp.com
+
+### Comprobar usuario no existente (debe responder 404)
+GET {{host}}/api/usuario/noexiste@example.com
+
+### Obtener total de obras (debe responder 200 con count)
+GET {{host}}/api/obra/cuantas
+
+### Paginación de obras (debe responder 200 con array de objetos)
+GET {{host}}/api/obra?desde=0&hasta=10
+
+### Obtener obra por ID válido (debe responder 200)
+GET {{host}}/api/obra/3
+
+### Obtener obra por ID inválido (debe responder 404)
+GET {{host}}/api/obra/9999
+
+### Borrar obra por ID válido (debe responder 200)
+DELETE {{host}}/api/obra/3
+
+### Verificiar que la obra se ha borrado (debe responder 404)
+GET {{host}}/api/obra/3

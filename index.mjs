@@ -8,6 +8,7 @@ import jwt from 'jsonwebtoken';
 import logger from './public/scripts/logger.mjs';   
 import obrasRouter from './routes/obras.mjs';
 import usuariosRouter from './routes/usuarios.mjs';
+import apiRouter from './routes/api.mjs';
 
 const app = express();
 const IN = process.env.IN || 'development';
@@ -52,6 +53,7 @@ app.get('/', (req, res) => {
 
 app.use('/obras', obrasRouter);
 app.use('/usuarios', usuariosRouter);
+app.use('/api', apiRouter);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () =>

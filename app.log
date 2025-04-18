@@ -1,2 +1,116 @@
 [2025-04-18 16:24:04] INFO: 	Iniciando servidor en modo development
 [2025-04-18 16:24:05] INFO: 	Servidor escuchando en http://localhost:8000
+[2025-04-18 16:24:39] INFO: 	GET / → landing page
+[2025-04-18 16:24:40] INFO: 	GET /obras/buscar?busqueda=oro
+[2025-04-18 16:24:40] INFO: 	GET /usuarios/login
+[2025-04-18 16:24:40] INFO: 	GET / → landing page
+[2025-04-18 16:24:42] INFO: 	GET /obras/buscar?busqueda=oro
+[2025-04-18 16:24:45] INFO: 	GET /usuarios/login
+[2025-04-18 16:24:50] INFO: 	GET /usuarios/login
+[2025-04-18 16:24:50] INFO: 	GET / → landing page
+[2025-04-18 16:24:53] INFO: 	GET /obras/buscar?busqueda=oro
+[2025-04-18 16:24:58] INFO: 	GET /obras/buscar?busqueda=oro
+[2025-04-18 16:26:20] INFO: 	GET / → landing page
+[2025-04-18 16:26:21] INFO: 	GET /usuarios/login
+[2025-04-18 16:26:21] INFO: 	GET /obras/buscar?busqueda=vaso
+[2025-04-18 16:26:24] INFO: 	GET / → landing page
+[2025-04-18 16:26:26] INFO: 	GET /usuarios/login
+[2025-04-18 16:26:29] INFO: 	GET /obras/buscar?busqueda=vaso
+[2025-04-18 16:26:31] INFO: 	GET /obras/buscar?busqueda=vaso
+[2025-04-18 16:26:31] INFO: 	GET / → landing page
+[2025-04-18 16:26:39] INFO: 	GET /usuarios/login
+[2025-04-18 16:30:17] INFO: 	GET / → landing page
+[2025-04-18 16:30:18] INFO: 	GET /usuarios/login
+[2025-04-18 16:30:18] INFO: 	GET /usuarios/registro
+[2025-04-18 16:30:19] INFO: 	Intento de login para correo: noexiste@example.com
+[2025-04-18 16:30:19] INFO: 	Intento de registro para correo: user1744986618587@test.com
+[2025-04-18 16:30:19] INFO: 	GET /obras/buscar?busqueda=vaso
+[2025-04-18 16:30:19] WARN: 	Usuario no encontrado: noexiste@example.com
+[2025-04-18 16:30:19] INFO: 	Registro exitoso de usuario: user1744986618587@test.com
+[2025-04-18 16:30:19] INFO: 	GET /usuarios/login
+[2025-04-18 16:30:19] INFO: 	Intento de login para correo: user1744986618587@test.com
+[2025-04-18 16:30:19] INFO: 	Login exitoso para usuario: UsuarioTest
+[2025-04-18 16:30:19] INFO: 	GET / → landing page
+[2025-04-18 16:30:22] INFO: 	GET /obras/buscar?busqueda=vaso
+[2025-04-18 16:30:25] INFO: 	GET / → landing page
+[2025-04-18 16:30:28] INFO: 	GET /obras/buscar?busqueda=vaso
+[2025-04-18 16:30:29] INFO: 	GET /usuarios/registro
+[2025-04-18 16:30:30] INFO: 	GET / → landing page
+[2025-04-18 16:30:30] INFO: 	Intento de registro para correo: user1744986629505@test.com
+[2025-04-18 16:30:30] INFO: 	Registro exitoso de usuario: user1744986629505@test.com
+[2025-04-18 16:30:30] INFO: 	GET /usuarios/login
+[2025-04-18 16:30:31] INFO: 	Intento de login para correo: user1744986629505@test.com
+[2025-04-18 16:30:31] INFO: 	Login exitoso para usuario: UsuarioTest
+[2025-04-18 16:30:31] INFO: 	GET / → landing page
+[2025-04-18 16:30:31] INFO: 	GET /usuarios/login
+[2025-04-18 16:30:32] INFO: 	Intento de login para correo: noexiste@example.com
+[2025-04-18 16:30:32] WARN: 	Usuario no encontrado: noexiste@example.com
+[2025-04-18 16:30:35] INFO: 	GET /usuarios/registro
+[2025-04-18 16:30:35] INFO: 	Intento de registro para correo: user1744986635483@test.com
+[2025-04-18 16:30:36] INFO: 	Registro exitoso de usuario: user1744986635483@test.com
+[2025-04-18 16:30:36] INFO: 	GET /usuarios/login
+[2025-04-18 16:30:36] INFO: 	Intento de login para correo: user1744986635483@test.com
+[2025-04-18 16:30:36] INFO: 	Login exitoso para usuario: UsuarioTest
+[2025-04-18 16:30:36] INFO: 	GET / → landing page
+[2025-04-18 16:30:40] INFO: 	GET /usuarios/login
+[2025-04-18 16:30:40] INFO: 	Intento de login para correo: noexiste@example.com
+[2025-04-18 16:30:40] WARN: 	Usuario no encontrado: noexiste@example.com
+[2025-04-18 16:36:06] INFO: 	Iniciando servidor en modo development
+[2025-04-18 16:36:07] INFO: 	Servidor escuchando en http://localhost:8000
+[2025-04-18 16:48:35] INFO: 	Iniciando servidor en modo development
+[2025-04-18 16:48:36] INFO: 	Servidor escuchando en http://localhost:8000
+[2025-04-18 16:48:39] ERROR: 	Error GET /api/usuario/pp@pp.com: 
+Invalid `prisma.usuario.findUnique()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+[2025-04-18 16:48:44] ERROR: 	Error GET /api/usuario/noexiste@example.com: 
+Invalid `prisma.usuario.findUnique()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+[2025-04-18 16:49:13] ERROR: 	Error GET /api/usuario/pp@pp.com: 
+Invalid `prisma.usuario.findUnique()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+[2025-04-18 14:56:33] INFO: 	Iniciando servidor en modo development
+[2025-04-18 14:56:33] INFO: 	Servidor escuchando en http://localhost:8000
+[2025-04-18 17:00:23] INFO: 	Iniciando servidor en modo development
+[2025-04-18 17:00:24] INFO: 	Servidor escuchando en http://localhost:8000
+[2025-04-18 17:00:29] ERROR: 	Error GET /api/usuario/pp@pp.com: 
+Invalid `prisma.usuario.findUnique()` invocation:
+
+
+Can't reach database server at `host.docker.internal:5432`
+
+Please make sure your database server is running at `host.docker.internal:5432`.
+[2025-04-18 17:04:23] INFO: 	Iniciando servidor en modo development
+[2025-04-18 17:04:24] INFO: 	Servidor escuchando en http://localhost:8000
+[2025-04-18 17:04:35] INFO: 	GET / → landing page
+[2025-04-18 17:04:38] INFO: 	GET /obras/buscar?busqueda=vaso
+[2025-04-18 17:04:38] ERROR: 	Error en búsqueda: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Can't reach database server at `host.docker.internal:5432`
+
+Please make sure your database server is running at `host.docker.internal:5432`.
+[2025-04-18 17:04:59] INFO: 	Iniciando servidor en modo development
+[2025-04-18 17:05:00] INFO: 	Servidor escuchando en http://localhost:8000
+[2025-04-18 17:05:04] INFO: 	GET /obras/buscar?busqueda=vaso
+[2025-04-18 17:05:04] ERROR: 	Error en búsqueda: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Obra" does not exist`
+[2025-04-18 17:08:13] INFO: 	Iniciando servidor en modo development
+[2025-04-18 17:08:13] INFO: 	Servidor escuchando en http://localhost:8000
+[2025-04-18 17:08:19] INFO: 	GET / → landing page
+[2025-04-18 17:08:22] INFO: 	GET /obras/buscar?busqueda=vaso
