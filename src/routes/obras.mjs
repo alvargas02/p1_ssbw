@@ -1,7 +1,7 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
 
-import logger from '../public/scripts/logger.mjs'
+import logger from '../utils/logger.mjs'
 
 const router = express.Router();
 const prisma = new PrismaClient();

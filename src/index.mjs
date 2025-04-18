@@ -5,7 +5,7 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
 
-import logger from './public/scripts/logger.mjs';   
+import logger from './utils/logger.mjs'; 
 import obrasRouter from './routes/obras.mjs';
 import usuariosRouter from './routes/usuarios.mjs';
 import apiRouter from './routes/api.mjs';

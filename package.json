@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.mjs",
   "scripts": {
-    "dev": "node --watch --env-file=.env index.mjs"
+    "dev": "node --watch --env-file=.env src/index.mjs"
   },
   "keywords": [],
   "author": "",

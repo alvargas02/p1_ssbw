@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
 
-import logger from '../public/scripts/logger.mjs'
+import logger from '../utils/logger.mjs'
 
 const router = express.Router();
 const prisma = new PrismaClient();
