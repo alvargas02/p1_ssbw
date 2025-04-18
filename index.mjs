@@ -5,11 +5,14 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
 
+import logger from './public/scripts/logger.mjs';   
 import obrasRouter from './routes/obras.mjs';
 import usuariosRouter from './routes/usuarios.mjs';
 
 const app = express();
 const IN = process.env.IN || 'development';
+
+logger.info(`Iniciando servidor en modo ${IN}`);
 
 nunjucks.configure('views', {
   autoescape: true,
@@ -33,7 +36,9 @@ app.use((req, res, next) => {
       req.rol            = data.rol;
       res.locals.usuario = data.usuario;
       res.locals.rol     = data.rol;
+      logger.debug(`Usuario autenticado: ${data.usuario} con rol ${data.rol}`);
     } catch (e) {
+      logger.warn(`Token no válido: ${e.message}`);
       console.warn('Token no válido', e);
     }
   }
@@ -41,6 +46,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
+  logger.info('GET / → landing page');
   res.render('index.njk');
 });
 
@@ -49,5 +55,5 @@ app.use('/usuarios', usuariosRouter);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () =>
-  console.log(`Servidor en http://localhost:${PORT} (modo ${IN})`)
+  logger.info(`Servidor escuchando en http://localhost:${PORT}`)
 );

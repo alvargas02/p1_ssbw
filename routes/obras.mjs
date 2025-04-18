@@ -1,6 +1,8 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
 
+import logger from '../public/scripts/logger.mjs'
+
 const router = express.Router();
 const prisma = new PrismaClient();
 
@@ -9,8 +11,10 @@ const prisma = new PrismaClient();
  */
 router.get('/buscar', async (req, res) => {
   const { busqueda } = req.query;
+  logger.info(`GET /obras/buscar?busqueda=${busqueda}`);
 
   if (!busqueda || typeof busqueda !== 'string') {
+    logger.warn('Parámetro de búsqueda inválido');
     return res.status(400).send('Parámetro de búsqueda inválido');
   }
 
@@ -43,11 +47,11 @@ router.get('/buscar', async (req, res) => {
       ORDER BY rank DESC
       LIMIT 3;
     `;
-
+    logger.debug(`Encontrados ${resultados.length} resultados para "${busqueda}"`);
     res.render('resultados.njk', { resultados, termino: busqueda });
 
   } catch (err) {
-    console.error(err);
+    logger.error(`Error en búsqueda: ${err.message}`);
     res.status(500).send('Error interno en la búsqueda');
   }
 });
