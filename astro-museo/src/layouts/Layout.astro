@@ -1,0 +1,19 @@
+---
+import { Fragment } from 'react'; // necesario para React en JSX si lo usas
+---
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Museo Arqueológico</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Tailwind CSS ya inyecta estilos -->
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <main class="min-h-screen flex flex-col">
+      <!-- Aquí va el contenido via slot -->
+      <slot />
+    </main>
+  </body>
+</html>

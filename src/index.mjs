@@ -1,3 +1,4 @@
+// index.mjs (Backend)
 import 'dotenv/config';
 import express from 'express';
 import nunjucks from 'nunjucks';
@@ -5,6 +6,7 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
 
+import cors from 'cors';             // ← Agregado
 import logger from './utils/logger.mjs'; 
 import obrasRouter from './routes/obras.mjs';
 import usuariosRouter from './routes/usuarios.mjs';
@@ -14,6 +16,23 @@ const app = express();
 const IN = process.env.IN || 'development';
 
 logger.info(`Iniciando servidor en modo ${IN}`);
+
+// ─── Configuración de CORS ───────────────────────────────────────────────
+// Permitir peticiones desde el front que corre en http://localhost:3000
+const whiteList = [ 'http://localhost:3000' ];
+app.use(cors({
+  origin: function(origin, callback) {
+    // origin puede ser undefined cuando se hace la petición desde Postman o si es llamada directa
+    if (!origin || whiteList.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS: Origen no permitido'));
+    }
+  },
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  credentials: true
+}));
+// ─────────────────────────────────────────────────────────────────────────
 
 nunjucks.configure('views', {
   autoescape: true,
@@ -27,7 +46,7 @@ app.use(express.static(path.join(process.cwd(), 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Middleware de autenticación
+// Middleware de autenticación (igual que antes)
 app.use((req, res, next) => {
   const token = req.cookies.access_token;
   if (token) {

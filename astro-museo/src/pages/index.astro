@@ -1,0 +1,14 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Menu from "@/components/Menu";
+import Contenido from "@/components/Contenido";
+---
+<Layout>
+  <!-- Insertamos el menú en modo isla: client:load -->
+  <Menu client:load />
+
+  <!-- Contenido (lista de obras) también en client:load para que SWR funcione -->
+  <div class="mt-4">
+    <Contenido client:load />
+  </div>
+</Layout>

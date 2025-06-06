@@ -133,3 +133,5 @@ Raw query failed. Code: `42P01`. Message: `relation "Obra" does not exist`
 [2025-04-18 17:36:50] INFO: 	Servidor escuchando en http://localhost:8000
 [2025-04-18 17:36:53] INFO: 	GET / → landing page
 [2025-04-18 17:37:29] INFO: 	GET /obras/buscar?busqueda=espada
+[2025-06-06 19:07:48] INFO: 	Iniciando servidor en modo development
+[2025-06-06 19:07:49] INFO: 	Servidor escuchando en http://localhost:8000
