@@ -114,3 +114,22 @@ Raw query failed. Code: `42P01`. Message: `relation "Obra" does not exist`
 [2025-04-18 17:08:13] INFO: 	Servidor escuchando en http://localhost:8000
 [2025-04-18 17:08:19] INFO: 	GET / → landing page
 [2025-04-18 17:08:22] INFO: 	GET /obras/buscar?busqueda=vaso
+[2025-04-18 17:29:57] INFO: 	Iniciando servidor en modo development
+[2025-04-18 17:29:58] INFO: 	Servidor escuchando en http://localhost:8000
+[2025-04-18 17:30:12] INFO: 	GET / → landing page
+[2025-04-18 17:30:15] INFO: 	GET /obras/buscar?busqueda=vaso
+[2025-04-18 17:30:18] INFO: 	GET / → landing page
+[2025-04-18 17:30:19] INFO: 	GET /usuarios/login
+[2025-04-18 17:30:24] INFO: 	GET /usuarios/registro
+[2025-04-18 17:30:38] INFO: 	Intento de registro para correo: alvargas@correo.ugr.es
+[2025-04-18 17:30:38] INFO: 	Registro exitoso de usuario: alvargas@correo.ugr.es
+[2025-04-18 17:30:38] INFO: 	GET /usuarios/login
+[2025-04-18 17:30:42] INFO: 	Intento de login para correo: alvargas@correo.ugr.es
+[2025-04-18 17:30:43] INFO: 	Login exitoso para usuario: Alejandro
+[2025-04-18 17:30:43] INFO: 	GET / → landing page
+[2025-04-18 17:30:46] INFO: 	GET /obras/buscar?busqueda=espada
+[2025-04-18 17:30:48] INFO: 	GET / → landing page
+[2025-04-18 17:36:49] INFO: 	Iniciando servidor en modo development
+[2025-04-18 17:36:50] INFO: 	Servidor escuchando en http://localhost:8000
+[2025-04-18 17:36:53] INFO: 	GET / → landing page
+[2025-04-18 17:37:29] INFO: 	GET /obras/buscar?busqueda=espada
