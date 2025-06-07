@@ -1,10 +1,12 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
-
+import obrasRouter from './obras.mjs';
 import logger from '../utils/logger.mjs'
 
 const router = express.Router();
 const prisma = new PrismaClient();
+
+router.use('/obras', obrasRouter);
 
 // Comprobar existencia de usuario por correo
 // GET /api/usuario/:correo

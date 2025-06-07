@@ -1,17 +1,71 @@
-version: '3'
+version: "2.4"
 
-volumes: 
+volumes:
   psql:
+  caddy-config:
+  caddy-data:
+
+networks:
+  internal:
+  public:
 
 services:
+  # ────── PostgreSQL ─────────────────────────────────────────────────────
   psql:
     image: postgres:17-alpine
     restart: unless-stopped
-    ports:
-      - 5432:5432
+    env_file: .env
     volumes:
       - psql:/var/lib/postgresql/data
+    networks:
+      - internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      retries: 5
+
+
+  # ────── API Express (museo) ─────────────────────────────────────────────
+  museo:
+    build:
+      context: ./museo
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      psql:
+        condition: service_healthy
+    networks:
+      - internal
+
+  # ────── Astro SSR ───────────────────────────────────────────────────────
+  astro:
+    build:
+      context: ./astro-museo
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: .env
     environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_DB=${POSTGRES_DB}
+      - PORT=${ASTRO_PORT}
+      - HOST=0.0.0.0 
+    depends_on:
+      - museo
+    networks:
+      - internal
+
+  # ────── Caddy (proxy inverso) ────────────────────────────────────────────
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      # - "443:443"  # activar cuando se ponga en producción real con dominios
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/index.html:/usr/share/caddy/index.html
+      - caddy-config:/config
+      - caddy-data:/data
+    networks:
+      - internal
+      - public

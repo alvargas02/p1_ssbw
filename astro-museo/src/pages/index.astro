@@ -1,14 +1,92 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import Menu from "@/components/Menu";
-import Contenido from "@/components/Contenido";
----
-<Layout>
-  <!-- Insertamos el menú en modo isla: client:load -->
-  <Menu client:load />
+import Layout from '../layouts/Layout.astro';
+import Contenido from '../components/Contenido.tsx';
 
-  <!-- Contenido (lista de obras) también en client:load para que SWR funcione -->
-  <div class="mt-4">
-    <Contenido client:load />
-  </div>
+const url        = new URL(Astro.url);
+const searchTerm = url.searchParams.get('busqueda')?.trim() ?? '';
+
+/** API interna para SSR */
+const INTERNAL_API = import.meta.env.PUBLIC_API_BASE || 'http://museo:8000';
+/** Si estamos en el navegador, usamos ruta relativa; si es SSR, apuntamos a INTERNAL_API */
+const apiBase = import.meta.env.SSR ? INTERNAL_API : '';
+
+let resultados: any[] = [];
+if (searchTerm) {
+  try {
+    const res = await fetch(
+      `${apiBase}/api/obras/buscar?busqueda=${encodeURIComponent(searchTerm)}`
+    );
+    if (res.ok) {
+      const json = await res.json();
+      resultados = json.data ?? [];
+    } else {
+      console.error(`Error búsqueda (${res.status})`, await res.text());
+    }
+  } catch (err) {
+    console.error('Error búsqueda', err);
+  }
+}
+---
+<Layout title={searchTerm ? `Resultados “${searchTerm}”` : 'Bienvenidos'}>
+  <section class="space-y-8">
+    <!-- Hero + Buscador -->
+    <div class="text-center max-w-2xl mx-auto space-y-4">
+      <h1 class="text-3xl font-bold">Museo Arqueológico</h1>
+      <p>Sumérgete en la historia milenaria de nuestra región.</p>
+      <form class="flex" method="GET" action="/">
+        <input
+          class="flex-1 border rounded-l px-3 py-2 focus:outline-none"
+          type="text"
+          name="busqueda"
+          placeholder="Buscar obra por título"
+          required
+          value={searchTerm}
+        />
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-r hover:bg-blue-700">
+          Buscar
+        </button>
+      </form>
+    </div>
+
+    {searchTerm ? (
+      <>
+        <h2 class="text-xl font-semibold">Resultados para “{searchTerm}”</h2>
+        {resultados.length === 0 ? (
+          <p class="italic">No se han encontrado coincidencias.</p>
+        ) : (
+          <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {resultados.map((obra) => (
+              <li
+                key={obra.id}
+                class="bg-white shadow rounded overflow-hidden hover:shadow-lg transition-shadow"
+              >
+                <img
+                  src={obra.imagen || '/images/logo.png'}
+                  alt={obra.titulo}
+                  class="h-48 w-full object-cover"
+                />
+                <div class="p-4 space-y-2">
+                  <h3 class="font-bold text-lg">{obra.titulo}</h3>
+                  <p class="text-sm text-gray-600">{obra.procedencia}</p>
+                  <p class="text-sm line-clamp-3">{obra.descripcion}</p>
+                  <a
+                    href={`/obra/${obra.id}`}
+                    class="inline-block text-blue-600 hover:underline"
+                  >
+                    Ver detalles →
+                  </a>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+        <div class="mt-8 text-center">
+          <a href="/" class="text-gray-600 hover:underline">← Volver</a>
+        </div>
+      </>
+    ) : (
+      <!-- Listado paginado con React -->
+      <Contenido client:load />
+    )}
+  </section>
 </Layout>

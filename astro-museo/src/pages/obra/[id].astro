@@ -1,0 +1,63 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const { id } = Astro.params;
+/** Misma lógica de API interna que en index */
+const INTERNAL_API = import.meta.env.PUBLIC_API_BASE || 'http://museo:8000';
+const apiBase      = import.meta.env.SSR ? INTERNAL_API : '';
+
+let obra = null;
+let status = 200;
+
+try {
+  const res = await fetch(`${apiBase}/api/obra/${id}`);
+  status = res.status;
+  if (res.ok) {
+    const json = await res.json();
+    obra = json.data;
+  } else {
+    console.error(`Error fetch obra ${id}`, await res.text());
+  }
+} catch (err) {
+  console.error('Error fetch obra', err);
+  status = 500;
+}
+---
+<Layout title={obra?.titulo ?? 'Obra no encontrada'}>
+  {status !== 200 ? (
+    <p class="text-center p-8">
+      Lo sentimos, la obra solicitada no está disponible.
+    </p>
+  ) : (
+    <article class="max-w-3xl mx-auto p-4 space-y-6">
+      <h2 class="text-2xl font-bold">{obra.titulo}</h2>
+      <img
+        src={obra.imagen || '/images/logo.png'}
+        alt={obra.titulo}
+        class="w-full object-cover rounded shadow"
+      />
+      <dl class="grid gap-4">
+        <div>
+          <dt class="font-semibold">Procedencia:</dt>
+          <dd>{obra.procedencia}</dd>
+        </div>
+        <div>
+          <dt class="font-semibold">Descripción:</dt>
+          <dd>{obra.descripcion}</dd>
+        </div>
+        {obra.comentario && (
+          <div>
+            <dt class="font-semibold">Comentario:</dt>
+            <dd>{obra.comentario}</dd>
+          </div>
+        )}
+      </dl>
+      <a
+        href="/"
+        class="inline-block px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+      >
+        ← Volver al listado
+      </a>
+    </article>
+  )}
+</Layout>

@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "main": "index.mjs",
   "scripts": {
-    "dev": "node --watch --env-file=.env src/index.mjs"
+    "dev": "node --watch --env-file=.env src/index.mjs",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:logs": "docker-compose logs -f --tail=100",
+    "docker:down": "docker-compose down"
   },
   "keywords": [],
   "author": "",

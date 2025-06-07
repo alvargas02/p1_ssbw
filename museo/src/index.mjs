@@ -6,9 +6,8 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
 
-import cors from 'cors';             // ← Agregado
-import logger from './utils/logger.mjs'; 
-import obrasRouter from './routes/obras.mjs';
+import cors from 'cors';
+import logger from './utils/logger.mjs';
 import usuariosRouter from './routes/usuarios.mjs';
 import apiRouter from './routes/api.mjs';
 
@@ -18,15 +17,21 @@ const IN = process.env.IN || 'development';
 logger.info(`Iniciando servidor en modo ${IN}`);
 
 // ─── Configuración de CORS ───────────────────────────────────────────────
-// Permitir peticiones desde el front que corre en http://localhost:3000
-const whiteList = [ 'http://localhost:3000' ];
+// Permitimos orígenes según el entorno:
+// - En desarrollo: http://localhost:3000 (Astro en dev)
+// - En producción: http://localhost (o el dominio real que uses con Caddy)
+const whiteList = [
+  'http://localhost:3000',
+  'http://localhost',             // Caddy en Docker Compose
+];
+
 app.use(cors({
   origin: function(origin, callback) {
-    // origin puede ser undefined cuando se hace la petición desde Postman o si es llamada directa
+    // Si la petición viene sin origin (Postman, backend a backend), permitirla
     if (!origin || whiteList.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
-      callback(new Error('CORS: Origen no permitido'));
+      callback(new Error(`CORS: Origen ${origin} no permitido`));
     }
   },
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
@@ -70,11 +75,10 @@ app.get('/', (req, res) => {
   res.render('index.njk');
 });
 
-app.use('/obras', obrasRouter);
 app.use('/usuarios', usuariosRouter);
 app.use('/api', apiRouter);
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.MUSEO_PORT || 8000;
 app.listen(PORT, () =>
   logger.info(`Servidor escuchando en http://localhost:${PORT}`)
 );

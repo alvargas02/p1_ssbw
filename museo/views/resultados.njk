@@ -16,7 +16,7 @@
         <div class="column is-one-third">
           <div class="card">
             <div class="card-image">
-              <figure class="image is-4by3">
+              <figure class="image is-4by3">  
                 <img src="{{ obra.imagen }}" alt="{{ obra.titulo }}">
               </figure>
             </div>
@@ -24,7 +24,7 @@
               <p class="title is-4">{{ obra.titulo }}</p>
               <p class="subtitle is-6">{{ obra.procedencia }}</p>
               <div class="content">
-                {{ obra.descripcion | truncate(150) }}
+                {{ obra.descripcion }}
               </div>
             </div>
           </div>

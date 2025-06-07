@@ -1,0 +1,17 @@
+:80 {
+  handle /api/* {
+    reverse_proxy museo:8000
+  }
+
+  handle /images/* {
+    reverse_proxy museo:8000
+  }
+
+  handle /usuarios/* {
+    reverse_proxy museo:8000
+  }
+
+  handle {
+    reverse_proxy astro:3000
+  }
+}
